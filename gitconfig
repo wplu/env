@@ -1,0 +1,23 @@
+[user]
+	name = Phil Lu
+#	email = plu@dev.null
+
+[core]
+	editor = /usr/bin/vim
+
+[color]
+    ui = true
+
+[alias]
+    st = status -s
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    lg = log -p
+    l = log --pretty=oneline
+    ls = ls-files
+
+[push]
+    default = simple
+
