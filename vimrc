@@ -1,4 +1,4 @@
-" mkdir -p ~/.vim/swap
+" mkdir -p ~/.vim/swaps
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 " vim +BundleInstall +qallset nocompatible
 
