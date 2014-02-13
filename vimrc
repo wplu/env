@@ -38,8 +38,8 @@ filetype plugin indent on
 
 
 set t_Co=256
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
 syntax on
 
 " Tab settings
