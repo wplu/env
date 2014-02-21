@@ -30,6 +30,8 @@ Bundle 'honza/dockerfile.vim'
 Bundle 'dgryski/vim-godef'
 Bundle 'nsf/gocode', {'rtp':'vim/'}
 Bundle 'ervandew/supertab'
+Bundle 'scrooloose/nerdcommenter'
+
 
 
 set rtp+=~/.powerline/powerline/bindings/vim
