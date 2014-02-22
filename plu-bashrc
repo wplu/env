@@ -3,7 +3,6 @@ case "$-" in
         set -o vi
         set filec
         export PS1="\w\n# \u@\h: "
-        export SVN_EDITOR=vim
         export PATH="/usr/local/bin:$PATH:/usr/sbin:/sbin"
         #for d in /opt/*/bin; do export PATH="$PATH:$d" ; done
      
