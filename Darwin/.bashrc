@@ -5,6 +5,13 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-source ~/.plu-bashrc
-source ~/.zendev.env
+# User specific aliases and functions
+case "$-" in
+*i*)
+    source ~/.plu-bashrc
+    source ~/.zendev.env
+
+    ;; # break;
+
+esac 
 

@@ -9,7 +9,7 @@ fi
 case "$-" in
 *i*)
     source ~/.plu-bashrc
-    source ~/.go.env
+    source ~/.zendev.env
 
     ;; # break;
 
