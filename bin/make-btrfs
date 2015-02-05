@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [[ -f "/etc/redhat-release" ]]; then
+    echo "may be helpful: yum install -y bind-utils htop screen"
+else
+    apt-get install -y btrfs-tools screen
+fi
+
+# partition disk into two equal sized partitions
+device="/dev/xvdb"
+
+partitions=$(fdisk -l "$device" | awk -v disk="^$device" '$0 ~ disk{count++} END{print count}')
+if [[ -n $partitions ]]; then
+    echo "cowardly not overwriting existing partitions on device $device"
+    fdisk -l "$device"
+    exit 2
+fi
+
+echo "partitioning disk $device"
+npsectors=$(fdisk -l "$device" |awk '/^Disk/ {print $(NF-1)/2; exit}')
+echo -e "n\np\n1\n\n$npsectors\nn\np\n2\n\n\nw\n" | fdisk "$device"
+fdisk -l "$device"
+
+fs=("" "/var/lib/docker" "/opt/serviced/var")
+for i in 1 2; do
+    dev="$device$i"
+    mkfs.btrfs --nodiscard "$dev"
+
+    dir="${fs[$i]}"
+    echo "$dev $dir btrfs rw,noatime,nodatacow 0 0" >>/etc/fstab
+    mkdir -p "$dir"
+    mount "$dir"
+    echo "mounted $dir: $(mount|grep $dir)"
+done
+
+exit 0
+
