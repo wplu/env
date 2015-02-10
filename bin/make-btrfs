@@ -1,14 +1,12 @@
 #!/bin/bash
 
-if [[ -f "/etc/redhat-release" ]]; then
-    echo "may be helpful: yum install -y bind-utils htop screen"
-else
-    apt-get install -y btrfs-tools screen
+device=${BTRFS_DEVICE:-"/dev/xvdb"}
+if [[ -z "$device" ]]; then
+    echo "BTRFS_DEVICE is unset - not creating btrfs partitions"
+    exit 2
 fi
 
 # partition disk into two equal sized partitions
-device="/dev/xvdb"
-
 partitions=$(fdisk -l "$device" | awk -v disk="^$device" '$0 ~ disk{count++} END{print count}')
 if [[ -n $partitions ]]; then
     echo "cowardly not overwriting existing partitions on device $device"
@@ -17,18 +15,37 @@ if [[ -n $partitions ]]; then
 fi
 
 echo "partitioning disk $device"
-npsectors=$(fdisk -l "$device" |awk '/^Disk/ {print $(NF-1)/2; exit}')
-echo -e "n\np\n1\n\n$npsectors\nn\np\n2\n\n\nw\n" | fdisk "$device"
+#npsectors=$(fdisk -l "$device" |awk '/^Disk/ {print $(NF-1)/2; exit}')
+#npsectors=$(fdisk -l "$device" |awk '/^Disk.*bytes$/ {spec=$(NF-2);gsub(/[^KMGT]/,"",spec);print "+" int($(NF-3)/2) spec; exit}')
+#echo -e "n\np\n1\n\n$npsectors\nn\np\n2\n\n\nw\n" | fdisk "$device"
+
+echo -e "n\np\n1\n\n+30G\nn\np\n2\n\n+20G\nn\np\n3\n\n\nw\n" | fdisk "$device"
 fdisk -l "$device"
 
-fs=("" "/var/lib/docker" "/opt/serviced/var")
-for i in 1 2; do
-    dev="$device$i"
-    mkfs.btrfs --nodiscard "$dev"
+if [[ -f "/etc/redhat-release" ]]; then
+    echo "may be helpful: yum install -y bind-utils htop screen"
+else
+    apt-get install -y btrfs-tools screen
+fi
 
+# make filesystems and mount them
+fstype=("" "btrfs" "xfs" "btrfs")
+fs=("" "/var/lib/docker" "/opt/serviced/var" "/opt/serviced/var/volumes")
+for i in 1 2 3; do
+    dev="$device$i"
+    fstype="${fstype[$i]}"
     dir="${fs[$i]}"
-    echo "$dev $dir btrfs rw,noatime,nodatacow 0 0" >>/etc/fstab
     mkdir -p "$dir"
+    case "$fstype" in
+        btrfs)
+            mkfs.btrfs --nodiscard "$dev"
+            echo "$dev $dir btrfs rw,noatime,nodatacow 0 0" >>/etc/fstab
+            ;;
+        ext4|xfs)
+            mkfs.$fstype "$dev"
+            echo "$dev $dir $fstype defaults 0 0" >>/etc/fstab
+            ;;
+    esac
     mount "$dir"
     echo "mounted $dir: $(mount|grep $dir)"
 done
