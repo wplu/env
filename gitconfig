@@ -1,6 +1,6 @@
 [user]
 	name = Phil Lu
-#	email = plu@dev.null
+	email = plu@dev.null
 
 [core]
 	editor = /usr/bin/vim
@@ -19,5 +19,4 @@
     ls = ls-files
 
 [push]
-    default = simple
-
+	default = simple
