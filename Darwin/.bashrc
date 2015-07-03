@@ -9,8 +9,7 @@ fi
 case "$-" in
 *i*)
     source ~/.plu-bashrc
-    source ~/.zendev.env
-
+    source ~/.stackengine.env
     ;; # break;
 
 esac 
