@@ -48,7 +48,7 @@ syntax on
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
+" set expandtab
 
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
@@ -247,7 +247,7 @@ vmap <S-Tab> <gv
 
 map <C-n> :NERDTreeToggle<CR>
 
-set expandtab
+" set expandtab
 set splitbelow
 set splitright
 
