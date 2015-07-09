@@ -1,15 +1,17 @@
 " mkdir -p ~/.vim/swaps
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-" vim +BundleInstall +qallset nocompatible
+" vim +PluginInstall +qall nocompatible
 
+" Make Vim more useful
+set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeIgnore=['\.pyc$', '\.swp$']
@@ -17,27 +19,27 @@ let g:NERDTreeIgnore=['\.pyc$', '\.swp$']
 "autocmd vimenter * if !argc() | NERDTree | endif
 map <leader>nt :NERDTreeToggle<cr>
 
-Bundle 'benmills/vimux'
+Plugin 'benmills/vimux'
 
-Bundle 'scrooloose/syntastic'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'honza/dockerfile.vim'
-Bundle 'dgryski/vim-godef'
-Bundle 'nsf/gocode', {'rtp':'vim/'}
-Bundle 'ervandew/supertab'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-surround'
+Plugin 'kien/ctrlp.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'honza/dockerfile.vim'
+Plugin 'dgryski/vim-godef'
+Plugin 'nsf/gocode', {'rtp':'vim/'}
+Plugin 'ervandew/supertab'
+Plugin 'scrooloose/nerdcommenter'
 
 
+" set rtp+=~/.powerline/powerline/bindings/vim
 
-set rtp+=~/.powerline/powerline/bindings/vim
-
-filetype plugin indent on
-
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 set t_Co=256
 " set background=dark
@@ -53,7 +55,7 @@ set softtabstop=4
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd FileType go setlocal nolist textwidth=0 noexpandtab ts=4 sw=4
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
+" autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType go set formatprg=gofmt
 
 " Make Vim more useful
