@@ -1,3 +1,4 @@
 --ignore-dir=web/static
 --ignore-dir=web/ui
 --ignore-file=ext:map
+--ignore-file=ext:html
