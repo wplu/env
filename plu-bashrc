@@ -2,6 +2,7 @@ case "$-" in
     *i*)
         set -o vi
         set filec
+        export PS1="\w\n# \D{%Y%m%d-%H%M%S-%Z} \u@\h: "
         export PS1="\w\n# \u@\h: "
         export PATH="/usr/local/bin:$PATH:/usr/sbin:/sbin"
         #for d in /opt/*/bin; do export PATH="$PATH:$d" ; done
