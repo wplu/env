@@ -1,6 +1,8 @@
 --ignore-dir=web/static
 --ignore-dir=web/ui
---ignore-dir=admin/public/api-docs/lib
 --ignore-dir=_workspace
 --ignore-file=ext:map
---ignore-file=ext:html
+--ignore-dir=.vagrant
+--ignore-dir=admin/public/api-docs/lib
+--ignore-file=is:swagger.json
+--ignore-file=is:stackengine_api.html
