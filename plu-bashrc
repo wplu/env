@@ -6,6 +6,8 @@ case "$-" in
         export PS1="\w\n# \u@\h: "
         export PATH="/usr/local/bin:$PATH:/usr/sbin:/sbin"
         #for d in /opt/*/bin; do export PATH="$PATH:$d" ; done
+
+        alias vg='vim -u ~/.vimrc.go '
      
     ;; # break
 
