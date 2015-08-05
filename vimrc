@@ -34,6 +34,32 @@ let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 0
 let g:go_fmt_command = "goimports"
 
+" Make Vim more useful
+set nocompatible
+
+" Enable line numbers
+set number
+" Highlight current line
+set cursorline
+" Show “invisible” characters
+set listchars=tab:▸\
+set list
+" Highlight searches
+set hlsearch
+set colorcolumn=79
+" Show the cursor position
+set ruler
+" Show the current mode
+set showmode
+" Show the filename in the window titlebar
+set title
+
+" Centralize backups, swapfiles and undo history
+"set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+	set undodir=~/.vim/undo
+endif
 
 " Moving between windows
 "map <C-J> <C-W>j
